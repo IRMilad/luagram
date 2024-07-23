@@ -6,7 +6,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/irmilad/luagram">
-    <img src="logo/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/IRMilad/luagram/blob/main/.github/logo.jpg?raw=true" alt="Logo" width="350" height="350">
   </a>
 
   <h3 align="center">luagram</h3>
