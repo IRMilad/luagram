@@ -34,7 +34,7 @@ pip install luagram
 When you run your script with Luagram, the following entities are automatically available globally in your Lua script:
 
  - create_new_client
- - Status
+ - enums
  - Params
  - Settings
  - BaseLogger
@@ -71,7 +71,7 @@ To create a new client instance, use the following Lua code:
               level = 1, -- Log level.
               max_file_size = 2^20 -- Maximum size of log file (1 MB).
           } -- Optional
-      } -- Optional
+      }, -- Optional
       queue_put_timeout = 10, -- Optional: Timeout for queue operations.
       updates_queue_size = 1000 -- Optional: Size of the updates queue.
     },
@@ -114,11 +114,11 @@ Send a query to TDLib and handle the result:
     result = result.wait() -- Wait for the result to be available.
     
     -- Handle result status
-    if result.status == Status.OK then
+    if result.status == enums.Status.OK then
         print(result.update) -- Print the result if successful.
-    elseif result.status == Status.ERROR then
+    elseif result.status == enums.Status.ERROR then
         print(result.error) -- Print the error message if there was an error.
-    elseif result.status == Status.PENDING then 
+    elseif result.status == enums.Status.PENDING then 
         print('pending ...') -- Print a pending message if the query is still processing.
     end
 ```
@@ -162,7 +162,7 @@ Stop the client with this Lua code:
 To execute your Lua script with Luagram, use the following command:
 
 ```
-luagram -n CLIENT_NAME -s SCRIPT_PATH
+luagram -n CLIENT_NAME -s SCRIPT_PATH --versoin jit
 
 ```
 Replace CLIENT_NAME with the name of your client instance and SCRIPT_PATH with the path to your Lua script.
