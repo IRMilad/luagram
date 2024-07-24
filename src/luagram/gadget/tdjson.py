@@ -1,10 +1,21 @@
 import sys
 import json
+import base64
 import ctypes.util
 from logging import Logger
 from typing import Optional
 from ctypes import CDLL, CFUNCTYPE, c_int, c_char_p, c_double, c_void_p, c_longlong
 
+
+def dumper(value):
+    if isinstance(value, bytes):
+        return base64.b64encode(value).decode(encoding='utf-8')
+    
+    elif type(value).__name__ == '_LuaTable':
+        return dict(value)
+    
+    else:
+        return str(value)
 
 
 class TDJson:
@@ -71,7 +82,7 @@ class TDJson:
         return self._td_json_client_destroy(self.td_json_client)
 
     def send(self, query: dict) -> None:
-        dump = json.dumps(query)
+        dump = json.dumps(query, default=dumper)
         self.logger.debug('sent query: %s', dump)
         self._td_json_client_send(self.td_json_client, dump.encode(encoding='utf-8'))
 
@@ -83,7 +94,7 @@ class TDJson:
             return json.loads(result)
 
     def execute(self, query):
-        dump = json.dumps(query)
+        dump = json.dumps(query, default=dumper)
         self.logger.debug('sent query: %s', dump)
         result = self._td_json_client_execute(self.td_json_client,
                                               dump.encode(encoding='utf-8'))
@@ -91,7 +102,3 @@ class TDJson:
         if result:
             self.logger.debug('received: %s', result)
             return json.loads(result)
-
-
-
-        
