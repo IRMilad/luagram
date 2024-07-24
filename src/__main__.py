@@ -5,7 +5,7 @@ import importlib
 from .luagram import LuagramClient, Params, Settings, BaseLogger, enums
 
 
-LUA_VERSION = os.getenv('LUAGRAM_LUA_VERSION', '5.1')
+LUA_VERSION = os.getenv('LUAGRAM_LUA_VERSION', 'jit')
 
 __LUA_VERSIONS = {
     '5.1': 'lupa.lua51',
