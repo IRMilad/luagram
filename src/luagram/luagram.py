@@ -1,6 +1,5 @@
 import os
 import re
-import lupa
 import uuid
 import queue
 import getpass
@@ -374,21 +373,21 @@ class LuagramClient:
                     update_type = update.get('@type')
         
                     for value in handlers.values():
-                        if lupa.lua_type(value) == 'table':
-                            if lupa.lua_type(value[2]) == 'table':
+                        if type(value).__name__ == '_LuaTable':
+                            if type(value[2]).__name__ == '_LuaTable':
                                 if update_type not in value[2].values():
                                     continue
         
                             handler = value[1]
  
-                        elif lupa.lua_type(value) == 'function':
+                        elif type(value).__name__ == '_LuaFunction':
                             handler = value
 
                         try:
                             handler(update)
-
+                
                         except BaseException as e:
-                            self.logger.error('handler %s: %s', handler, e)
+                            self.logger.error('handler %s: %s', value, e)
 
 
     def stop(self):
