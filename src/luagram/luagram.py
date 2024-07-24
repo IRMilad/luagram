@@ -1,5 +1,6 @@
 import os
 import re
+import lupa
 import uuid
 import queue
 import getpass
@@ -14,22 +15,7 @@ from .gadget import TDJson, tools
 from .response import Response
 
 
-try:
-    import lupa.luajit21 as lupa
-
-except ImportError:
-    try:
-        import lupa.lua54 as lupa
-
-    except ImportError:
-        try:
-            import lupa.lua53 as lupa
-
-        except ImportError:
-            import lupa
-
-
-__version__ = '1.0.2'
+__version__ = '1.0.3'
 
 
 
